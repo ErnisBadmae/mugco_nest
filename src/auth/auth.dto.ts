@@ -11,3 +11,9 @@ export class AuthDto {
 	@IsString()
 	password: string
 }
+
+export class RefreshTokenDto {
+	// @IsOptional
+	@IsString()
+	refreshToken: string
+}

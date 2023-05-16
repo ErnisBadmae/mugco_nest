@@ -24,3 +24,26 @@ model User {
 
 
 }
+
+
+model Product {
+  id Int @id @default(autoincrement())
+  name  String
+   slug  String
+   description  String
+   price Int
+  images  String[]
+
+  reviewId Review[]
+
+}
+
+model Review {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  product Product @relation(fields: [productId], references: [id])
+  text String
+  rating Int
+  productId Int @map("productId")
+}
