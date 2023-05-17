@@ -25,6 +25,9 @@ model User {
 
   avatarPath String @default("/uploads/default-avatar.png") @map("avatar_path")
   phone      String @default("")
+
+  orders  Order[]
+  reviews Review[]
 }
 
 model Product {
@@ -40,6 +43,10 @@ model Product {
 
   orderItems OrderItem[]
   // reviewId Review[]
+  reviews    Review[]
+
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?      @map("category_id")
 }
 
 model Category {
@@ -47,7 +54,8 @@ model Category {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
 
-  name String @unique
+  name     String    @unique
+  products Product[]
 }
 
 model Review {
@@ -60,6 +68,12 @@ model Review {
 
   text   String
   rating Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int     @map("product_id")
 }
 
 model Order {
@@ -69,6 +83,9 @@ model Order {
 
   status EnumOrder   @default(PENDING)
   items  OrderItem[]
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
 }
 
 model OrderItem {
