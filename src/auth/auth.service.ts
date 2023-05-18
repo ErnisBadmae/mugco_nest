@@ -85,8 +85,6 @@ export class AuthService {
 			expiresIn: '14d'
 		})
 
-		console.log('refreshToken', refreshToken)
-
 		return {
 			accessToken,
 			refreshToken
