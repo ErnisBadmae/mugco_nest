@@ -9,6 +9,10 @@ export class CategoryService {
 	constructor(private prisma: PrismaService) {}
 
 	async byId(id: number) {
+		if (isNaN(id)) {
+			throw new Error(`Invalid id: ${id}`)
+		}
+
 		const category = await this.prisma.category.findUnique({
 			where: {
 				id
@@ -52,6 +56,12 @@ export class CategoryService {
 	}
 
 	async update(id: number, dto: CategoryDto) {
+		const category = await this.byId(id)
+
+		if (!category) {
+			throw new NotFoundException(`Category with ID ${id} not found.`)
+		}
+
 		return this.prisma.category.update({
 			where: {
 				id
