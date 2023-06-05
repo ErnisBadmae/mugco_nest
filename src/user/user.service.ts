@@ -14,7 +14,6 @@ export class UserService {
 	constructor(private prisma: PrismaService) {}
 
 	async byId(id: number, selectObj: Prisma.UserSelect = {}) {
-		console.log('id', id)
 		const user = await this.prisma.user.findUnique({
 			where: {
 				id
@@ -28,7 +27,13 @@ export class UserService {
 						name: true,
 						price: true,
 						images: true,
-						slug: true
+						slug: true,
+						category: {
+							select: {
+								slug: true
+							}
+						},
+						reviews: true
 					}
 				},
 				...selectObj
