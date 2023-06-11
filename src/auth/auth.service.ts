@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common'
 
 import { PrismaService } from 'src/prisma.service'
-import { AuthDto } from './auth.dto'
+import { AuthDto } from './dto/auth.dto'
 
 import { faker } from '@faker-js/faker'
 import { hash, verify } from 'argon2'

@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator'
+import { IsEmail, IsString, MinLength } from 'class-validator'
 
 export class AuthDto {
 	// @IsOptional
@@ -10,10 +10,4 @@ export class AuthDto {
 	})
 	@IsString()
 	password: string
-}
-
-export class RefreshTokenDto {
-	// @IsOptional
-	@IsString()
-	refreshToken: string
 }
