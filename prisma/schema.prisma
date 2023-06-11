@@ -29,6 +29,8 @@ model User {
   orders    Order[]
   reviews   Review[]
   favorites Product[]
+
+  isAdmin Boolean @default(false) @map("is_admin")
 }
 
 model Product {
@@ -87,8 +89,10 @@ model Order {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
 
-  status EnumOrder   @default(PENDING)
-  items  OrderItem[]
+  status EnumOrder @default(PENDING)
+
+  items OrderItem[]
+  total Int
 
   user   User @relation(fields: [userId], references: [id])
   userId Int  @map("user_id")
