@@ -3,9 +3,11 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { returnReviewObject } from './return-review.object'
 import { ReviewDto } from './review.dto'
+import { ProductService } from 'src/product/product.service'
 
 @Injectable()
 export class ReviewService {
+	private productService: ProductService
 	constructor(private prisma: PrismaService) {}
 
 	async getAll() {
@@ -15,15 +17,8 @@ export class ReviewService {
 	}
 
 	async create(userId: number, dto: ReviewDto, productId: number) {
-		const isProduct = await this.prisma.product.findUnique({
-			where: {
-				id: productId
-			}
-		})
+		const isProduct = await this.productService.byId(productId)
 
-		if (!isProduct) {
-			throw new NotFoundException('Product not found')
-		}
 		return this.prisma.review.create({
 			data: {
 				...dto,

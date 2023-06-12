@@ -11,9 +11,14 @@ import { ProductModule } from './product/product.module'
 import { ReviewModule } from './review/review.module'
 import { StatisticModule } from './statistic/statistic.module'
 import { UserModule } from './user/user.module'
-
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { path } from 'app-root-path'
 @Module({
 	imports: [
+		ServeStaticModule.forRoot({
+			rootPath: `${path}/uploads`,
+			serveRoot: '/uploads'
+		}),
 		AuthModule,
 		ProductModule,
 		ConfigModule.forRoot(),
